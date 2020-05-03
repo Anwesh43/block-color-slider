@@ -32,7 +32,7 @@ export const useDimension = () => {
         }
         return () => {
             window.onresize = () => {
-                
+
             }
         }
     })
@@ -40,4 +40,34 @@ export const useDimension = () => {
         w,
         h
      }
+}
+
+export const useStyle = (w, h, scale) =>{
+    const blockBackground = "#4CAF50"
+    const barBackground = "#3F51B5"
+    const blockSize = Math.min(w, h) / 5
+    const sf = Math.sin(scale * Math.PI)
+    const x = w * sf
+    const blockW = w - x
+    const y = h / 2 - blockSize / 2
+    return {
+        blockStyle() {
+            const width = `${blockSize}px`
+            const height = `${blockSize}px`
+            const background = blockBackground
+            const position = 'absolute'
+            const top = `${y}px`
+            const left = `${x}px`
+            return {position, top, left, width, height, background}
+        },
+        barStyle() {
+            const width = `${blockW}px`
+            const height = `${blockSize}px`
+            const position = 'absolute'
+            const left = `${x}px`
+            const top = `${y}px`
+            const background = barBackground
+            return {width, height, position, top, left, background}
+        }
+    }
 }
